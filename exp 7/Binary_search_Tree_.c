@@ -63,10 +63,34 @@ struct treeNode* removeNode(struct treeNode *root, int v) {
 }
 
 bool findNode(struct treeNode *root, int v) {
-    if (!root) return false;
-    if (root->val == v) return true;
-    if (v < root->val) return findNode(root->lc, v);
-    return findNode(root->rc, v);
+    while (root != NULL) {
+        if (root->val == v)
+            return true;
+        else if (v < root->val)
+            root = root->lc;
+        else
+            root = root->rc;
+    }
+    return false;
+}
+
+void inorder(struct treeNode *root) {
+    if (!root) return;
+    inorder(root->lc);
+    printf("%d ", root->val);
+    inorder(root->rc);
+}
+
+int countNodes(struct treeNode *root) {
+    if (!root) return 0;
+    return 1 + countNodes(root->lc) + countNodes(root->rc);
+}
+
+void freeTree(struct treeNode *root) {
+    if (!root) return;
+    freeTree(root->lc);
+    freeTree(root->rc);
+    free(root);
 }
 
 int main() {
@@ -99,5 +123,11 @@ int main() {
     for (int i = 0; i < ri; i++)
         printf("%s\n", res[i]);
 
+    printf("\nTree has %d node(s)\n", countNodes(root));
+    printf("Inorder traversal: ");
+    inorder(root);
+    printf("\n");
+
+    freeTree(root);
     return 0;
 }
