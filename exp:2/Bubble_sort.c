@@ -1,29 +1,30 @@
-/*Write a C program to check whether a given element is present in an array of elements using linear search.
-  The program should prompt the user to enter the size of the array, the elements of the array, and the element to search for.*/
+/*Write a C program that reads n integer numbers and arranges them in ascending order using Bubble Sort.*/
+
 #include <stdio.h>
 
 int main() {
-    int n, key, i, found = 0;
+    int n;
     scanf("%d", &n);
+
     int arr[n];
-    for (i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         scanf("%d", &arr[i]);
     }
-    scanf("%d", &key);
 
-    for(i=0;i<n;i++){
-		if(arr[i] == key){
-			found = 1;
-			break;
-		}
-	}
-	if(found==1){
-		printf("found at position %d\n", i);
-	}else{
-		printf("%d not found\n", key);
-	}
+    for (int pass = 0; pass < n; pass++) {
+        for (int j = 0; j < n - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+
+    return 0;
 }
-
-
-
 
